@@ -2,44 +2,27 @@ import { Component } from "react";
 import { Container } from "react-bootstrap";
 
 class CommentArea extends Component {
-  handleSubmit = async (event) => {
-    event.preventDefault();
+  async function() {
+    const response = await fetch("https://striveschool-api.herokuapp.com/api/put-your-endpoint-here/", {
+      method: "GET",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTczNDRlYWZlMDMxZTAwMTliYTE4YjQiLCJpYXQiOjE3MDMxNzUxMjgsImV4cCI6MTcwNDM4NDcyOH0.8pYtolr_ikZIN1gn4b2ciQDrs8q7YqR4Hn6ZX5xBx74",
+      },
+    });
 
-    try {
-      const response = await fetch("", {
-        method: "POST",
-        body: JSON.stringify(this.state.reservation),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-      } else {
-        this.setState({
-          hasAlert: true,
-          alert: {
-            message: "Errore nell'invio dei dati. Status: " + response.status,
-            variant: "danger",
-            status: response.status,
-          },
-        });
-
-        setTimeout(
-          () => this.setState({ hasAlert: false, alert: { message: "", status: null, variant: "primary" } }),
-          2500
-        );
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      this.handleLoading(false);
+    if (response.ok) {
+      const singlebookcomment = await response.json();
     }
-  };
+  }
+  catch(err) {
+    console.log(err);
+  }
+
   render() {
     return (
       <Container>
-        <p>{this.props.title}</p>
+        <p>{this.singlebookcomment.bookObj}</p>
       </Container>
     );
   }
