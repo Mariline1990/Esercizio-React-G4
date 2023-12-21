@@ -16,9 +16,6 @@ class CommentArea extends Component {
 
       if (response.ok) {
       } else {
-        // siamo nel caso di errore con uno status >= 400
-
-        // gestiamo l'avviso
         this.setState({
           hasAlert: true,
           alert: {
@@ -27,7 +24,7 @@ class CommentArea extends Component {
             status: response.status,
           },
         });
-        // spegnamo l'avviso
+
         setTimeout(
           () => this.setState({ hasAlert: false, alert: { message: "", status: null, variant: "primary" } }),
           2500
